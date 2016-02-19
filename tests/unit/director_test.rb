@@ -2,6 +2,8 @@ require 'test_helper'
 
 class DirectorTest < Minitest::Test
   def setup
+    super
+    
     @david_lean = Director.new
     @david_lean.name = "David Lean"
     @david_lean.save

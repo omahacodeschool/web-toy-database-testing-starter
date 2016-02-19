@@ -2,6 +2,8 @@ require 'test_helper'
 
 class MovieTest < Minitest::Test
   def setup
+    super
+    
     @star_wars = Movie.new
     @star_wars.title = "Star Wars"
     @star_wars.save

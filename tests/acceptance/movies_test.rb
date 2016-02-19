@@ -10,6 +10,8 @@ class MoviesTest < Minitest::Test
   # The actual tests go below this comment.
 
   def setup
+    super
+    
     @david_lean = Director.new
     @david_lean.name = "David Lean"
     @david_lean.save
