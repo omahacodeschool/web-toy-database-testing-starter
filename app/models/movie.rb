@@ -1,5 +1,23 @@
 class Movie < ActiveRecord::Base
 
+  # Set a movie's actors.
+  # 
+  # arr_of_actor_ids - Array of actor IDs.
+  # 
+  # Return Nil.
+  def set_actors(arr_of_actor_ids)
+    Performance.where("movie_id" => self.id).delete_all
+
+    arr_of_actor_ids.each do |actor_id|
+      performance_row = Performance.new
+      performance_row.actor_id = actor_id
+      performance_row.movie_id = self.id
+      performance_row.save
+    end
+
+    return nil
+  end
+
   # Get this movie's actors.
   # 
   # Returns a Relation (similar to an Array) of Actor objects.
