@@ -9,7 +9,7 @@
   <p>
     <label for="movie_director">Director</label>
     <select name="movie_director">
-      <option>Select a director...</option>
+      <option value="">Select a director...</option>
 
       <% @directors.each do |director| %>
         <option value="<%= director.id %>">

@@ -1,5 +1,34 @@
 class Movie < ActiveRecord::Base
 
+  def get_errors
+    return @errors
+  end
+
+  def set_errors
+    @errors = []
+
+    if self.title == ""
+      @errors << "Title cannot be blank"
+    end
+
+    if self.director_id == nil
+      @errors << "Must choose a director"
+    end
+  end
+
+  # Checks if the record is valid.
+  # 
+  # Returns Boolean.
+  def is_valid
+    self.set_errors
+
+    if @errors.length > 0
+      return false
+    else
+      return true
+    end
+  end
+
   # Set a movie's actors.
   # 
   # arr_of_actor_ids - Array of actor IDs.

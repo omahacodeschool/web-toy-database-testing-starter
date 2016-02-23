@@ -35,11 +35,16 @@ MyApp.post "/create_movie" do
   @movie.title = params["movie_title"]
   @movie.director_id = params["movie_director"]
 
-  @movie.save
+  if @movie.is_valid == true
+    @movie.save
 
-  @movie.set_actors(params["movie_actors"])
+    @movie.set_actors(params["movie_actors"])
 
-  erb :"movies/created"
+    erb :"movies/created"
+  else
+    # Return error message
+    erb :"error"
+  end
 end
 
 
