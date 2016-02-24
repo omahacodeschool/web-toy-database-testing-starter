@@ -25,25 +25,38 @@ MyApp.get "/movies" do
 end
 
 MyApp.get "/new_movie" do
-  @directors = Director.all
-  @actors = Actor.all
-  erb :"movies/new"
+  @current_user = User.find_by_id(session["user_id"])
+
+  if @current_user != nil
+    @directors = Director.all
+    @actors = Actor.all
+    erb :"movies/new"
+  else
+    erb :"login_first"
+  end
 end
 
 MyApp.post "/create_movie" do
-  @movie = Movie.new
-  @movie.title = params["movie_title"]
-  @movie.director_id = params["movie_director"]
+  @current_user = User.find_by_id(session["user_id"])
 
-  if @movie.is_valid == true
-    @movie.save
+  if @current_user != nil
 
-    @movie.set_actors(params["movie_actors"])
+    @movie = Movie.new
+    @movie.title = params["movie_title"]
+    @movie.director_id = params["movie_director"]
 
-    erb :"movies/created"
+    if @movie.is_valid == true
+      @movie.save
+
+      @movie.set_actors(params["movie_actors"])
+
+      erb :"movies/created"
+    else
+      # Return error message
+      erb :"error"
+    end
   else
-    # Return error message
-    erb :"error"
+    erb :"login_first"
   end
 end
 
